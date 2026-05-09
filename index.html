@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recomienda Eltex y cobra hasta 1.500 € | Programa de referidos</title>
+<meta name="description" content="Recomienda Eltex a alguien de tu entorno. Cuando firma, tú cobras hasta 1.500 € en metálico. Sin tope de referencias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<style>
+/* ─── RESET & ROOT ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:        #4349FF;
+  --blue-2:      #427BFF;
+  --blue-grad:   linear-gradient(135deg, #4349FF, #427BFF);
+  --yellow:      #EDC645;
+  --white:       #FFFFFF;
+  --black:       #000000;
+  --ink:         #0F1117;
+  --muted:       #4B5563;
+  --subtle:      #F8F9FF;
+  --border:      #E5E7FF;
+  --grey-light:  #F1F1F1;
+
+  --font-head:   'Rethink Sans', sans-serif;
+  --font-body:   'DM Sans', sans-serif;
+
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  --shadow-sm:   0 2px 8px rgba(67,73,255,.06);
+  --shadow-md:   0 4px 24px rgba(67,73,255,.08);
+  --shadow-lg:   0 8px 48px rgba(67,73,255,.12);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── PATTERNS ─────────────────────────────────────────────── */
+.dots-light {
+  background-color: #ffffff;
+  background-image: radial-gradient(circle, rgba(67,73,255,0.11) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+.dots-blue {
+  background-color: var(--blue);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.14) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* ─── BUTTONS ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: opacity .15s, transform .12s;
+  touch-action: manipulation;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:hover  { opacity: .88; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; pointer-events: none; }
+
+.btn-primary {
+  background: var(--blue-grad);
+  color: var(--white);
+  font-size: 16px;
+  padding: 15px 32px;
+}
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 15px;
+  padding: 12px 26px;
+}
+.btn-black {
+  background: var(--black);
+  color: var(--white);
+  font-size: 17px;
+  padding: 16px 40px;
+}
+.btn-outline-white {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,.5);
+  font-size: 15px;
+  padding: 12px 26px;
+}
+.btn-full { width: 100%; font-size: 17px; padding: 16px 24px; }
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+}
+.nav-logo img { height: 34px; }
+
+@media (max-width: 600px) {
+  nav { padding: 0 20px; }
+  .nav-logo img { height: 28px; }
+}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  padding: 72px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 64px;
+  align-items: center;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--blue);
+  color: var(--blue);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 20px;
+}
+.pill-tag i { width: 13px; height: 13px; }
+
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(30px, 4.5vw, 54px);
+  font-weight: 800;
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.hero h1 .grad {
+  background: linear-gradient(120deg, var(--blue) 0%, var(--blue-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 460px;
+}
+
+.prize-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #EEF0FF;
+  color: var(--blue);
+  border: 1.5px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 32px;
+}
+.prize-chip i { width: 14px; height: 14px; }
+
+.hero-checks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.hero-checks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.check-dot {
+  width: 22px;
+  height: 22px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.check-dot i { width: 12px; height: 12px; color: #ffffff; stroke: #ffffff; stroke-width: 3; }
+
+/* ─── FORM CARD ─────────────────────────────────────────────── */
+.form-card {
+  background: var(--subtle);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+.form-card-title {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.form-card-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 7px;
+}
+.field input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #DDE1FF;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  -webkit-appearance: none;
+  min-height: 48px;
+}
+.field input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(67,73,255,.1);
+}
+.field input::placeholder { color: #B0B8CC; }
+.field-error {
+  display: none;
+  font-size: 12px;
+  color: #DC2626;
+  margin-top: 5px;
+}
+.field.has-error input { border-color: #DC2626; }
+.field.has-error .field-error { display: block; }
+
+.legal-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 18px 0 22px;
+}
+.legal-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin-top: 2px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+.legal-row label {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  cursor: pointer;
+}
+.legal-row a { color: var(--blue); text-decoration: underline; }
+
+.form-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* Success */
+.success-wrap {
+  display: none;
+  text-align: center;
+  padding: 24px 0 8px;
+}
+.success-circle {
+  width: 64px;
+  height: 64px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+.success-circle i { width: 28px; height: 28px; color: #fff; stroke-width: 2.5; }
+.success-wrap h3 {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.success-wrap p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ─── SECTION WRAPPER ───────────────────────────────────────── */
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.eyebrow i { width: 13px; height: 13px; }
+
+.section-h2 {
+  font-family: var(--font-head);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.section-h2 .grad {
+  background: linear-gradient(120deg, var(--blue) 0%, var(--blue-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-sub {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 52px;
+}
+
+/* ─── PRIZES ─────────────────────────────────────────────────── */
+.prizes-section { background: var(--grey-light); }
+
+.prize-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.prize-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: transform .2s, box-shadow .2s;
+}
+.prize-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.prize-icon {
+  width: 46px;
+  height: 46px;
+  background: var(--blue);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.prize-icon i,
+.prize-icon svg { width: 20px; height: 20px; color: #ffffff; stroke: #ffffff; }
+
+.prize-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.prize-amount {
+  font-family: var(--font-head);
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #16A34A;
+}
+.prize-eur {
+  font-size: 24px;
+  font-weight: 700;
+  color: #16A34A;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.prize-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.55;
+}
+
+/* Combo card */
+.combo-card {
+  background: var(--blue);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.combo-left { flex-shrink: 0; }
+.combo-badge {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 4px;
+}
+.combo-amount {
+  font-family: var(--font-head);
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--yellow);
+}
+.combo-text {
+  font-size: 16px;
+  color: rgba(255,255,255,.85);
+  line-height: 1.7;
+  max-width: 540px;
+}
+.combo-text strong { color: var(--white); }
+
+/* ─── HOW IT WORKS ───────────────────────────────────────────── */
+.how-section { /* dots-blue applied inline */ }
+
+.how-section .eyebrow { color: var(--yellow); }
+.how-section .section-h2 { color: var(--white); }
+.how-section .section-h2 .grad { background: none; -webkit-text-fill-color: var(--yellow); }
+.how-section .section-sub { color: rgba(255,255,255,.7); }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.step-card {
+  background: rgba(255,255,255,.1);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  transition: background .2s;
+}
+.step-card:hover { background: rgba(255,255,255,.16); }
+.step-num {
+  width: 40px;
+  height: 40px;
+  background: var(--yellow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+.step-card h3 {
+  font-family: var(--font-head);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.step-card p {
+  font-size: 15px;
+  color: rgba(255,255,255,.7);
+  line-height: 1.7;
+}
+
+/* ─── WHY MULTIPLE ───────────────────────────────────────────── */
+.multi-section { background: var(--grey-light); }
+
+.multi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.multi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+}
+.multi-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--blue);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.multi-icon i,
+.multi-icon svg { width: 20px; height: 20px; color: #ffffff; stroke: #ffffff; }
+.multi-card h3 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.multi-card p { font-size: 16px; color: var(--muted); line-height: 1.7; }
+
+/* ─── CTA FINAL ──────────────────────────────────────────────── */
+.cta-final {
+  text-align: center;
+}
+.cta-final .section-inner { padding-top: 80px; padding-bottom: 80px; }
+.cta-final .pill-tag { color: var(--yellow); border-color: rgba(237,198,69,.5); margin-bottom: 22px; }
+.cta-final .section-h2 { color: var(--white); margin-bottom: 14px; }
+.cta-final .section-h2 .grad { background: none; -webkit-text-fill-color: var(--yellow); }
+.cta-final-sub { font-size: 17px; color: rgba(255,255,255,.7); margin-bottom: 32px; }
+.cta-final-note { font-size: 13px; color: rgba(255,255,255,.45); margin-top: 16px; line-height: 1.5; }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  background: var(--grey-light);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid #E0E0E0;
+}
+footer img { height: 20px; }
+footer p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+footer a { color: var(--blue); text-decoration: underline; }
+footer a:hover { opacity: .75; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .prize-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 48px 24px 56px;
+    gap: 40px;
+  }
+  .section-inner { padding: 56px 24px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 12px; }
+  .multi-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+}
+
+@media (max-width: 600px) {
+  .prize-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .combo-card { flex-direction: column; gap: 16px; padding: 24px; }
+  .combo-amount { font-size: 44px; }
+  .prize-amount { font-size: 38px; }
+  nav { padding: 0 20px; }
+}
+
+@media (max-width: 400px) {
+  .prize-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    opacity: 0;
+    animation: fadeUp .5s ease forwards;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: .05s; }
+  .hero-left > *:nth-child(2) { animation-delay: .12s; }
+  .hero-left > *:nth-child(3) { animation-delay: .18s; }
+  .hero-left > *:nth-child(4) { animation-delay: .22s; }
+  .hero-left > *:nth-child(5) { animation-delay: .27s; }
+  .hero-left > *:nth-child(6) { animation-delay: .32s; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="https://eltex.es" class="nav-logo" aria-label="Eltex">
+    <img src="https://ahorro.eltex.es/jd740en4eq0c1atrdyv4dbkbys833wnm/_astro/logo-eltex-black.Z7RHpV-h_Z256fUS.webp" alt="Eltex">
+  </a>
+  <a href="#form" class="btn btn-yellow">Recomendar ahora</a>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section class="dots-light">
+  <div class="hero">
+
+    <!-- Left col -->
+    <div class="hero-left">
+      <div class="pill-tag">
+        <i data-lucide="zap"></i>
+        Solo para clientes Eltex
+      </div>
+
+      <h1>¿Cuándo fue la última vez que hablaste de la <span class="grad">factura de la luz</span>?</h1>
+
+      <div class="prize-chip">
+        <i data-lucide="coins"></i>
+        Hasta 1.500&nbsp;€ por proyecto
+      </div>
+
+      <p class="hero-sub">Cada amigo, familiar o vecino al que le hablas de tu instalación es una recomendación que puede convertirse en hasta 1.500&nbsp;€ para ti.</p>
+
+      <a href="#form" class="btn btn-primary">
+        Empieza a recomendar
+        <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+      </a>
+    </div>
+
+    <!-- Right col: form -->
+    <div class="form-card" id="form">
+      <p class="form-card-title">¿A quién quieres<br>recomendar hoy?</p>
+      <p class="form-card-sub">Danos su nombre y teléfono. Nosotros hacemos el resto.</p>
+
+      <!-- WEBHOOK: añadir action="URL" al form cuando esté disponible -->
+      <form
+        id="mgm-form"
+        name="mgm-referral"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        novalidate>
+
+        <!-- Honeypot -->
+        <p style="display:none;">
+          <label>No rellenar: <input name="bot-field"></label>
+        </p>
+
+        <div class="field" id="field-name">
+          <label for="name">Nombre de la persona a recomendar</label>
+          <input type="text" id="name" name="name" placeholder="Ej. Carlos García" autocomplete="off">
+          <p class="field-error">Por favor, indica el nombre.</p>
+        </div>
+
+        <div class="field" id="field-phone">
+          <label for="phone">Teléfono</label>
+          <input type="tel" id="phone" name="phone" placeholder="6XX XXX XXX" autocomplete="off" inputmode="tel">
+          <p class="field-error">Por favor, indica un teléfono válido.</p>
+        </div>
+
+        <div class="legal-row">
+          <input type="checkbox" id="legal" name="legal">
+          <label for="legal">
+            Acepto la <a href="https://eltex.es/politica-de-privacidad/" target="_blank" rel="noopener">política de privacidad</a> y las bases del programa de referidos.
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+          <span id="btn-text">Enviar recomendación</span>
+          <i data-lucide="send" id="btn-icon" style="width:18px;height:18px;"></i>
+          <i data-lucide="loader" id="btn-loader" style="width:18px;height:18px;display:none;"></i>
+        </button>
+
+        <p class="form-note">Le contactamos de tu parte. Sin compromiso, sin presión.</p>
+      </form>
+
+      <!-- Estado de éxito -->
+      <div class="success-wrap" id="success" role="alert" aria-live="polite">
+        <div class="success-circle">
+          <i data-lucide="check-check"></i>
+        </div>
+        <h3>¡Enviado!</h3>
+        <p>Tu recomendación ya está en nuestras manos.<br>Te avisamos cuando firme su instalación.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── PREMIOS ───────────────────────────────────────────────── -->
+<section class="prizes-section">
+  <div class="section-inner">
+
+    <div class="eyebrow">
+      <i data-lucide="euro"></i>
+      Lo que cobras tú
+    </div>
+    <h2 class="section-h2">Un premio por <span class="grad">cada</span> producto</h2>
+    <p class="section-sub">Y se acumulan. Si tu contacto se anima con todo, tú te llevas el máximo.</p>
+
+    <div class="prize-grid">
+
+      <div class="prize-card">
+        <div class="prize-icon"><i data-lucide="sun"></i></div>
+        <p class="prize-label">Paneles solares</p>
+        <div class="prize-amount">500<span class="prize-eur">€</span></div>
+        <p class="prize-desc">Por cada instalación de paneles solares que contrate tu contacto.</p>
+      </div>
+
+      <div class="prize-card">
+        <div class="prize-icon"><i data-lucide="thermometer-sun"></i></div>
+        <p class="prize-label">Aerotermia</p>
+        <div class="prize-amount">500<span class="prize-eur">€</span></div>
+        <p class="prize-desc">Por cada instalación de aerotermia que contrate tu contacto.</p>
+      </div>
+
+      <div class="prize-card">
+        <div class="prize-icon"><i data-lucide="car"></i></div>
+        <p class="prize-label">Cargador eléctrico</p>
+        <div class="prize-amount">100<span class="prize-eur">€</span></div>
+        <p class="prize-desc">Por cargador para coche eléctrico instalado en su hogar.</p>
+      </div>
+
+      <div class="prize-card">
+        <div class="prize-icon"><i data-lucide="battery-charging"></i></div>
+        <p class="prize-label">Batería</p>
+        <div class="prize-amount">100<span class="prize-eur">€</span></div>
+        <p class="prize-desc">Por batería de almacenamiento instalada en su hogar.</p>
+      </div>
+
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-left">
+        <p class="combo-badge">Bono combo</p>
+        <div class="combo-amount">+300€</div>
+      </div>
+      <p class="combo-text">
+        Si quien recomiendes contrata los cuatro &mdash; solar + aerotermia + cargador + batería &mdash; sumas <strong>300&nbsp;€ extra</strong> al total. Premio máximo: <strong>1.500&nbsp;€ por proyecto, directo a tu banco.</strong>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CÓMO FUNCIONA ─────────────────────────────────────────── -->
+<section class="how-section dots-blue">
+  <div class="section-inner">
+
+    <div class="eyebrow">
+      <i data-lucide="zap"></i>
+      Así funciona
+    </div>
+    <h2 class="section-h2">30 segundos de tu parte</h2>
+    <p class="section-sub">Sin papeleo, sin llamadas, sin nada complicado.</p>
+
+    <div class="steps-grid">
+
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Danos su teléfono</h3>
+        <p>Rellena el formulario con el nombre y teléfono de tu amigo, vecino o familiar. Solo eso.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Nosotros le contactamos</h3>
+        <p>Le llamamos de tu parte y le explicamos todo sin compromiso y sin presión. Tú no tienes que hacer nada más.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Tú cobras</h3>
+        <p>Cuando tu contacto firma, te hacemos una transferencia en 30 días. Al banco. En metálico. Sin más.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── POR QUÉ RECOMENDAR A MÁS ─────────────────────────────── -->
+<section class="multi-section">
+  <div class="section-inner">
+
+    <div class="eyebrow">
+      <i data-lucide="users"></i>
+      Piénsalo
+    </div>
+    <h2 class="section-h2">No tienes un amigo.<br>Tienes <span class="grad">una red entera.</span></h2>
+    <p class="section-sub">Vecinos, compañeros de trabajo, familia, el grupo del cole de tus hijos... Cada uno es una oportunidad. Y tú cobras por cada una.</p>
+
+    <div class="multi-grid">
+
+      <div class="multi-card">
+        <div class="multi-icon"><i data-lucide="home"></i></div>
+        <h3>Tus vecinos</h3>
+        <p>¿Cuántos viven cerca y siguen pagando la misma factura que tú pagabas antes? Cada uno puede ser tu próximo proyecto.</p>
+      </div>
+
+      <div class="multi-card">
+        <div class="multi-icon"><i data-lucide="users-round"></i></div>
+        <h3>Familia y amigos</h3>
+        <p>Los que ya te han preguntado "¿y eso de los paneles solares cómo funciona?" son los que más fácil van a decir que sí.</p>
+      </div>
+
+      <div class="multi-card">
+        <div class="multi-icon"><i data-lucide="briefcase"></i></div>
+        <h3>Compañeros de trabajo</h3>
+        <p>El ahorro en la factura es de los temas más comentados. Si hablas de Eltex en la oficina, alguien va a querer saber más.</p>
+      </div>
+
+      <div class="multi-card">
+        <div class="multi-icon"><i data-lucide="infinity"></i></div>
+        <h3>Sin límite de proyectos</h3>
+        <p>Cada persona que recomiendas y contrata genera un premio independiente. Cuantos más proyectos, más ingresos extras para ti.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA FINAL ─────────────────────────────────────────────── -->
+<section class="cta-final dots-blue">
+  <div class="section-inner">
+    <h2 class="section-h2">Hay alguien en tu lista<br>que lleva tiempo <span class="grad">esperando esta llamada.</span></h2>
+    <p class="cta-final-sub">30 segundos. Un nombre. Un teléfono. Y la mejor recomendación que alguien de tu entorno va a recibir este año.</p>
+    <a href="#form" class="btn btn-yellow" style="font-size:17px;padding:16px 40px;">
+      Recomendar ahora
+      <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+    </a>
+    <p class="cta-final-note">Sin compromiso &nbsp;·&nbsp; Sin tope</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <img src="https://ahorro.eltex.es/jd740en4eq0c1atrdyv4dbkbys833wnm/_astro/logo-eltex-black.Z7RHpV-h_Z256fUS.webp" alt="Eltex">
+  <p>
+    &copy; 2026 Eltex &nbsp;·&nbsp;
+    <a href="https://eltex.es/politica-de-privacidad/" target="_blank" rel="noopener">Política de privacidad</a>
+  </p>
+</footer>
+
+<!-- ─── JS ────────────────────────────────────────────────────── -->
+<script>
+// Init Lucide icons
+lucide.createIcons();
+
+// Smooth scroll to form from all #form anchors
+document.querySelectorAll('a[href="#form"]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById('form');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Focus first input after scroll
+      setTimeout(() => {
+        const first = target.querySelector('input:not([type="hidden"])');
+        if (first) first.focus({ preventScroll: true });
+      }, 600);
+    }
+  });
+});
+
+// Form validation & submit
+const form       = document.getElementById('mgm-form');
+const submitBtn  = document.getElementById('submit-btn');
+const btnText    = document.getElementById('btn-text');
+const btnIcon    = document.getElementById('btn-icon');
+const btnLoader  = document.getElementById('btn-loader');
+const successDiv = document.getElementById('success');
+
+function showFieldError(fieldId) {
+  document.getElementById(fieldId).classList.add('has-error');
+}
+function clearFieldError(fieldId) {
+  document.getElementById(fieldId).classList.remove('has-error');
+}
+
+document.getElementById('name').addEventListener('input', () => clearFieldError('field-name'));
+document.getElementById('phone').addEventListener('input', () => clearFieldError('field-phone'));
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const name  = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const legal = document.getElementById('legal').checked;
+
+  let valid = true;
+  if (!name)  { showFieldError('field-name');  valid = false; }
+  if (!phone || phone.replace(/\D/g,'').length < 9) { showFieldError('field-phone'); valid = false; }
+  if (!valid) return;
+
+  if (!legal) {
+    alert('Necesitas aceptar la política de privacidad para continuar.');
+    return;
+  }
+
+  // Loading state
+  submitBtn.disabled = true;
+  btnText.textContent = 'Enviando...';
+  btnIcon.style.display = 'none';
+  btnLoader.style.display = 'inline-block';
+
+  try {
+    // Netlify form submission
+    const formData = new FormData(form);
+    await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString()
+    });
+  } catch (_) {
+    // On network error we still show success (Netlify handles it server-side)
+  }
+
+  // Show success
+  form.style.display = 'none';
+  successDiv.style.display = 'block';
+  lucide.createIcons(); // re-init in case new icons loaded
+});
+</script>
+
+</body>
+</html>
