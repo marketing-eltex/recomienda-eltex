@@ -697,7 +697,6 @@ footer a:hover { opacity: .75; }
       <p class="form-card-title">¿A quién quieres<br>recomendar hoy?</p>
       <p class="form-card-sub">Danos su nombre y teléfono. Nosotros hacemos el resto.</p>
 
-      <!-- WEBHOOK: añadir action="URL" al form cuando esté disponible -->
       <form
         id="mgm-form"
         name="mgm-referral"
@@ -910,6 +909,11 @@ footer a:hover { opacity: .75; }
 // Init Lucide icons
 lucide.createIcons();
 
+// Read URL params (referrer data passed via email link)
+const urlParams = new URLSearchParams(window.location.search);
+const referrerName  = urlParams.get('referrer_name') || '';
+const referrerPhone = urlParams.get('referrer_phone') || '';
+
 // Smooth scroll to form from all #form anchors
 document.querySelectorAll('a[href="#form"]').forEach(el => {
   el.addEventListener('click', e => {
@@ -968,15 +972,37 @@ form.addEventListener('submit', async function(e) {
   btnLoader.style.display = 'inline-block';
 
   try {
-    // Netlify form submission
     const formData = new FormData(form);
-    await fetch('/', {
+
+    // Netlify form submission
+    const netlifySubmit = fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(formData).toString()
     });
+
+    // Make webhook
+    const webhookSubmit = fetch('https://hook.eu2.make.com/rpyh0p4py39kwy6lq4hibetkpx6r24cm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        Nombre:          name,
+        firstname:       name,
+        Telefono:        phone,
+        phone:           phone,
+        TyC:             true,
+        Producto:        ' ',
+        Proveedor:       'Landing Recomienda',
+        canal_captacion: 'mgm',
+        OrigenUrl:       window.location.href,
+        referrer_name:   referrerName,
+        referrer_phone:  referrerPhone
+      })
+    });
+
+    await Promise.allSettled([netlifySubmit, webhookSubmit]);
   } catch (_) {
-    // On network error we still show success (Netlify handles it server-side)
+    // Show success regardless — data already sent
   }
 
   // Show success
