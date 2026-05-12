@@ -256,23 +256,6 @@
     /* ── JOBS ── */
     .jobs { display: block; line-height: 0; font-size: 0; }
     .jobs iframe { display: block; width: 100%; border: none; }
-    #iframe-placeholder {
-      display: none;
-      width: 100%;
-      background: #f3f4f6;
-      align-items: center;
-      justify-content: center;
-    }
-    #iframe-placeholder.visible { display: flex; }
-    .iframe-spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid #E2EAFF;
-      border-top-color: #4349FF;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── FOOTER ── */
     .footer { background: var(--color-text); padding: 48px 24px; }
@@ -380,7 +363,6 @@
 
   <!-- JOBS — iframe full width -->
   <div class="jobs" id="jobs">
-    <div id="iframe-placeholder"><div class="iframe-spinner"></div></div>
     <iframe
       id="factorial-iframe"
       width="100%"
@@ -409,44 +391,11 @@
   <script>
     lucide.createIcons();
 
-    const EMBED_URL  = 'https://eltexsolar.factorial.es/embed/jobs';
-    const iframe      = document.querySelector('#factorial-iframe');
-    const placeholder = document.querySelector('#iframe-placeholder');
-    let firstLoad    = true;
-    let healthTimer  = null;
-    let iframeH      = 600; // last known good height
-
-    function showPlaceholder() {
-      placeholder.style.height = iframeH + 'px';
-      placeholder.classList.add('visible');
-      iframe.style.display = 'none';       // hide iframe — no stacking issue
-    }
-
-    function hidePlaceholder() {
-      placeholder.classList.remove('visible');
-      iframe.style.display = 'block';
-    }
-
-    // resize message = iframe is alive → restore it
+    // Factorial iframe resize
     window.addEventListener('message', function(event) {
-      if (event.origin !== 'https://eltexsolar.factorial.es') return;
-      if (event.data.type === 'resizeIframe') {
-        iframeH = event.data.height;
-        iframe.style.height = iframeH + 'px';
-        clearTimeout(healthTimer);
-        hidePlaceholder();
+      if (event.origin === 'https://eltexsolar.factorial.es' && event.data.type === 'resizeIframe') {
+        document.querySelector('#factorial-iframe').style.height = event.data.height + 'px';
       }
-    });
-
-    // Every navigation after first load: hide iframe immediately,
-    // show placeholder; reset src if no resize message in 1.5s
-    iframe.addEventListener('load', function() {
-      if (firstLoad) { firstLoad = false; return; }
-      showPlaceholder();
-      clearTimeout(healthTimer);
-      healthTimer = setTimeout(function() {
-        iframe.src = EMBED_URL; // silent reset
-      }, 1500);
     });
 
     // Smooth scroll
