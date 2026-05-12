@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,7 @@
       --radius-lg: 20px;
       --radius-full: 9999px;
       --shadow-md: 0 4px 24px rgba(67,73,255,0.08);
+      --shadow-lg: 0 8px 48px rgba(67,73,255,0.12);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,7 +84,7 @@
     }
     .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-    /* ── SECTIONS ── */
+    /* ── LAYOUT ── */
     .section {
       max-width: 1120px;
       margin: 0 auto;
@@ -97,6 +98,20 @@
       text-transform: uppercase;
       color: var(--color-primary);
       margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      line-height: 1.15;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin: 0 24px;
     }
 
     /* ── HERO ── */
@@ -158,104 +173,87 @@
     .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
     .btn-primary i { width: 18px; height: 18px; }
 
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--color-border);
-      margin: 0 24px;
+    /* ── HQ ── */
+    .hq-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
     }
-
-    /* ── TEAM ── */
-    .team-body {
-      max-width: 720px;
+    .hq-info {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 8px;
     }
-    .team-body p {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--color-text-muted);
-      line-height: 1.85;
-    }
-    .team-body p.highlight {
+    .hq-name {
       font-family: var(--font-heading);
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--color-primary);
-      line-height: 1.6;
-    }
-
-    /* ── OFFICES ── */
-    .offices-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .office-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--color-border);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .office-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-    .office-card-header {
-      height: 140px;
-      background-color: var(--color-bg-blue);
-      background-image: radial-gradient(circle, rgba(67,73,255,0.15) 1.5px, transparent 1.5px);
-      background-size: 18px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .office-icon {
-      width: 52px;
-      height: 52px;
-      background: var(--color-gradient);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-    .office-icon i { width: 24px; height: 24px; }
-    .office-card-body { padding: 24px; }
-    .office-badge {
-      display: inline-block;
-      font-family: var(--font-heading);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      margin-bottom: 10px;
-      background: var(--color-bg-blue);
-      color: var(--color-primary);
-    }
-    .office-badge.hq { background: var(--color-primary); color: #fff; }
-    .office-card-body h3 {
-      font-family: var(--font-heading);
-      font-size: 18px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--color-text);
-      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
     }
-    .office-link {
+    .hq-address {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .hq-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-family: var(--font-heading);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--color-primary);
       transition: gap 0.2s;
       min-height: 44px;
     }
-    .office-link:hover { gap: 10px; }
-    .office-link i { width: 14px; height: 14px; }
+    .hq-link:hover { gap: 10px; }
+    .hq-link i { width: 14px; height: 14px; }
 
-    /* ── JOBS — full width, no padding ── */
+    /* Photo grid */
+    .hq-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 240px 160px;
+      gap: 10px;
+    }
+    .hq-photo {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background-color: var(--color-bg-blue);
+      background-image: radial-gradient(circle, rgba(67,73,255,0.18) 1.5px, transparent 1.5px);
+      background-size: 18px 18px;
+      position: relative;
+    }
+    .hq-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Placeholder visible only when no real img is loaded */
+    .hq-photo .ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(67,73,255,0.3);
+    }
+    .hq-photo .ph i { width: 28px; height: 28px; }
+    /* Main photo spans 2 rows */
+    .hq-photo.main {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+    .hq-photo.secondary { grid-column: 2; grid-row: 1; }
+    .hq-photo.tertiary  { grid-column: 2; grid-row: 2; }
+
+    /* ── JOBS ── */
     .jobs { display: block; line-height: 0; font-size: 0; }
     .jobs iframe { display: block; width: 100%; border: none; }
 
@@ -281,11 +279,12 @@
       .section { padding: 64px 20px; }
       .divider { margin: 0 20px; }
       .nav-links { display: none; }
-      .offices-grid { grid-template-columns: 1fr; }
+      .hq-layout { grid-template-columns: 1fr; gap: 36px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 480px) {
       .btn-primary { width: 100%; justify-content: center; }
+      .hq-photos { grid-template-rows: 200px 140px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition: none !important; }
@@ -295,14 +294,13 @@
 <body>
 
   <!-- NAV -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
+  <nav class="nav" role="navigation" aria-label="Navegación principal">
     <div class="nav-inner">
-      <a href="https://eltex.es" aria-label="Eltex homepage">
+      <a href="https://eltex.es" aria-label="Eltex">
         <img src="https://eltex.es/wp-content/uploads/2025/04/cropped-Eltex_Logo_Positive-e1744210383227-scaled.png"
              alt="Eltex" class="nav-logo">
       </a>
       <div class="nav-links">
-        <a href="#team">Equipo</a>
         <a href="#offices">Oficinas</a>
         <a href="#jobs">Ofertas de trabajo</a>
       </div>
@@ -316,10 +314,10 @@
       <p class="section-tag">Careers</p>
       <h1 id="hero-heading">Come work <span class="grad">with us</span> at Eltex</h1>
       <div class="hero-body">
-        <p>Eltex is building the technological infrastructure for residential electrification in Europe, one of the largest and least digitized markets within the energy transition.</p>
-        <p>We operate an integrated platform that connects digital acquisition, structured financing, operational execution, and long-term maintenance into one scalable system. By combining energy, software, data, and AI, we bring efficiency, operational visibility, and strong unit economics to a traditionally fragmented industry.</p>
-        <p>Our technology enables smarter operations, better decision-making, and scalable deployment of residential electrification.</p>
-        <p class="highlight">Our ambition is clear: to become the reference platform for home electrification in Europe, building a company defined by disciplined growth, capital efficiency, and international expansion. ⚡</p>
+        <p>Eltex está construyendo la infraestructura tecnológica para la electrificación del hogar en Europa, uno de los mercados más grandes y menos digitalizados dentro de la transición energética.</p>
+        <p>Operamos una plataforma integrada que conecta la captación digital, la financiación estructurada, la ejecución operativa y el mantenimiento a largo plazo en un sistema escalable. Combinando energía, software, datos e inteligencia artificial, aportamos eficiencia, visibilidad operativa y una economía sólida a un sector tradicionalmente fragmentado.</p>
+        <p>Nuestra tecnología permite operaciones más inteligentes, una mejor toma de decisiones y un despliegue escalable de la electrificación residencial.</p>
+        <p class="highlight">Nuestra ambición es clara: convertirnos en la plataforma de referencia para la electrificación del hogar en Europa, construyendo una empresa definida por un crecimiento disciplinado, eficiencia de capital y expansión internacional. ⚡</p>
       </div>
       <a href="#jobs" class="btn-primary">
         <i data-lucide="briefcase"></i>
@@ -330,64 +328,40 @@
 
   <hr class="divider">
 
-  <!-- TEAM -->
-  <div class="section" id="team" aria-labelledby="team-heading">
-    <p class="section-tag">Meet the team</p>
-    <h2 id="team-heading" style="font-family:var(--font-heading);font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--color-text);letter-spacing:-0.02em;margin-bottom:32px;line-height:1.15;">Meet Eltex Solar SL's team</h2>
-    <div class="team-body">
-      <p>At Eltex, we are building a team of people who combine energy, technology, operations, and data to transform how residential electrification works in Europe.</p>
-      <p>We are operators, builders, and problem-solvers who move fast, think long-term, and care about execution. Our culture is driven by ownership, curiosity, and ambition, with a strong focus on using technology and AI to improve how we work and scale.</p>
-      <p class="highlight">We believe great companies are built by great teams, people who challenge ideas, collaborate openly, and are excited about building something that matters. ⚡</p>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- OFFICES -->
+  <!-- HQ -->
   <div class="section" id="offices" aria-labelledby="offices-heading">
-    <p class="section-tag">Oficinas</p>
-    <h2 id="offices-heading" style="font-family:var(--font-heading);font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--color-text);letter-spacing:-0.02em;margin-bottom:32px;line-height:1.15;">Eltex Solar SL's offices</h2>
-    <div class="offices-grid">
-      <div class="office-card">
-        <div class="office-card-header">
-          <div class="office-icon"><i data-lucide="building-2"></i></div>
+    <p class="section-tag">Nuestra sede</p>
+    <h2 class="section-title" id="offices-heading">Eltex Headquarters</h2>
+    <div class="hq-layout">
+
+      <div class="hq-info">
+        <p class="hq-name">Barcelona</p>
+        <p class="hq-address">Calle Sancho Ávila 47, 08018<br>El Poblenou, Barcelona</p>
+        <a href="https://maps.google.com/?q=Calle+Sancho+Avila+47+Barcelona" target="_blank" rel="noopener" class="hq-link">
+          Ver localización <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Photo grid — reemplaza los src con URLs reales de Mailchimp o similar -->
+      <div class="hq-photos">
+        <div class="hq-photo main">
+          <!-- <img src="URL_FOTO_PRINCIPAL" alt="Oficina Eltex Barcelona"> -->
+          <div class="ph"><i data-lucide="image"></i></div>
         </div>
-        <div class="office-card-body">
-          <span class="office-badge hq">Headquarters</span>
-          <h3>Eltex Headquarters</h3>
-          <a href="https://maps.google.com/?q=Calle+Sancho+Avila+47+Barcelona" target="_blank" rel="noopener" class="office-link">
-            Ver localización <i data-lucide="arrow-right"></i>
-          </a>
+        <div class="hq-photo secondary">
+          <!-- <img src="URL_FOTO_2" alt="Equipo Eltex"> -->
+          <div class="ph"><i data-lucide="image"></i></div>
+        </div>
+        <div class="hq-photo tertiary">
+          <!-- <img src="URL_FOTO_3" alt="Espacio Eltex"> -->
+          <div class="ph"><i data-lucide="image"></i></div>
         </div>
       </div>
-      <div class="office-card">
-        <div class="office-card-header">
-          <div class="office-icon"><i data-lucide="building"></i></div>
-        </div>
-        <div class="office-card-body">
-          <span class="office-badge">Oficina</span>
-          <h3>Eltex Madrid</h3>
-          <a href="https://maps.google.com/?q=Eltex+Madrid" target="_blank" rel="noopener" class="office-link">
-            Ver localización <i data-lucide="arrow-right"></i>
-          </a>
-        </div>
-      </div>
-      <div class="office-card">
-        <div class="office-card-header">
-          <div class="office-icon"><i data-lucide="sun"></i></div>
-        </div>
-        <div class="office-card-body">
-          <span class="office-badge">Oficina</span>
-          <h3>Eltex Valencia</h3>
-          <a href="https://maps.google.com/?q=Eltex+Valencia" target="_blank" rel="noopener" class="office-link">
-            Ver localización <i data-lucide="arrow-right"></i>
-          </a>
-        </div>
-      </div>
+
     </div>
   </div>
 
-  <!-- JOBS — full width iframe -->
+  <!-- JOBS — iframe full width -->
   <div class="jobs" id="jobs">
     <iframe
       id="factorial-iframe"
@@ -417,13 +391,37 @@
   <script>
     lucide.createIcons();
 
-    function handleIframeMessage(event) {
-      if (event.origin === "https://eltexsolar.factorial.es" && event.data.type === "resizeIframe") {
-        document.querySelector("#factorial-iframe").style.height = event.data.height + "px";
-      }
-    }
-    window.addEventListener("message", handleIframeMessage);
+    const EMBED_URL = 'https://eltexsolar.factorial.es/embed/jobs';
+    const iframe = document.querySelector('#factorial-iframe');
+    let firstLoad = true;
+    let resizeReceived = false;
+    let healthTimer = null;
 
+    // Resize + heartbeat: every resize message = iframe is alive and working
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://eltexsolar.factorial.es') return;
+      if (event.data.type === 'resizeIframe') {
+        resizeReceived = true;
+        clearTimeout(healthTimer);
+        iframe.style.height = event.data.height + 'px';
+      }
+    });
+
+    // On every iframe load (navigation), start a health check
+    iframe.addEventListener('load', function() {
+      if (firstLoad) { firstLoad = false; return; } // skip initial load
+      resizeReceived = false;
+      clearTimeout(healthTimer);
+      // Give 5 seconds for the new page to send a resize message.
+      // If nothing arrives, the iframe is on a broken page → reset.
+      healthTimer = setTimeout(function() {
+        if (!resizeReceived) {
+          iframe.src = EMBED_URL;
+        }
+      }, 5000);
+    });
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         const target = document.querySelector(a.getAttribute('href'));
