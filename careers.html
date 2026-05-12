@@ -254,8 +254,27 @@
     .hq-photo.tertiary  { grid-column: 2; grid-row: 2; }
 
     /* ── JOBS ── */
-    .jobs { display: block; line-height: 0; font-size: 0; }
+    .jobs { display: block; line-height: 0; font-size: 0; position: relative; }
     .jobs iframe { display: block; width: 100%; border: none; }
+    .iframe-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: #f3f4f6;
+      z-index: 10;
+      align-items: center;
+      justify-content: center;
+    }
+    .iframe-overlay.visible { display: flex; }
+    .iframe-overlay-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #E2EAFF;
+      border-top-color: #4349FF;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── FOOTER ── */
     .footer { background: var(--color-text); padding: 48px 24px; }
@@ -363,6 +382,9 @@
 
   <!-- JOBS — iframe full width -->
   <div class="jobs" id="jobs">
+    <div class="iframe-overlay" id="iframe-overlay">
+      <div class="iframe-overlay-spinner"></div>
+    </div>
     <iframe
       id="factorial-iframe"
       width="100%"
@@ -392,33 +414,38 @@
     lucide.createIcons();
 
     const EMBED_URL = 'https://eltexsolar.factorial.es/embed/jobs';
-    const iframe = document.querySelector('#factorial-iframe');
+    const iframe  = document.querySelector('#factorial-iframe');
+    const overlay = document.querySelector('#iframe-overlay');
     let firstLoad = true;
-    let resizeReceived = false;
     let healthTimer = null;
 
-    // Resize + heartbeat: every resize message = iframe is alive and working
+    function showOverlay() {
+      overlay.classList.add('visible');
+    }
+    function hideOverlay() {
+      overlay.classList.remove('visible');
+    }
+
+    // Resize message = the iframe page is alive and rendered → hide overlay
     window.addEventListener('message', function(event) {
       if (event.origin !== 'https://eltexsolar.factorial.es') return;
       if (event.data.type === 'resizeIframe') {
-        resizeReceived = true;
         clearTimeout(healthTimer);
+        hideOverlay();
         iframe.style.height = event.data.height + 'px';
       }
     });
 
-    // On every iframe load (navigation), start a health check
+    // Every navigation after the first: show overlay immediately to hide
+    // any error page, then reset src if no resize message arrives in 1.5s
     iframe.addEventListener('load', function() {
-      if (firstLoad) { firstLoad = false; return; } // skip initial load
-      resizeReceived = false;
+      if (firstLoad) { firstLoad = false; return; }
+      showOverlay();
       clearTimeout(healthTimer);
-      // Give 5 seconds for the new page to send a resize message.
-      // If nothing arrives, the iframe is on a broken page → reset.
       healthTimer = setTimeout(function() {
-        if (!resizeReceived) {
-          iframe.src = EMBED_URL;
-        }
-      }, 5000);
+        // No resize message received → broken page → silently reset
+        iframe.src = EMBED_URL;
+      }, 1500);
     });
 
     // Smooth scroll
